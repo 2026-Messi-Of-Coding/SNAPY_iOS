@@ -20,13 +20,11 @@
 		BCD8158F2F68DF9B0028AE50 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCD8158E2F68DF9B0028AE50 /* ReactiveMoya */; };
 		BCD815912F68DF9B0028AE50 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCD815902F68DF9B0028AE50 /* RxMoya */; };
 		BCD815982F69285F0028AE50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCD815942F69285F0028AE50 /* Assets.xcassets */; };
-		BCD815992F69285F0028AE50 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815952F69285F0028AE50 /* ContentView.swift */; };
 		BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815962F69285F0028AE50 /* SNAPY_iOSApp.swift */; };
 		BCD815A32F6929550028AE50 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815A22F69294B0028AE50 /* SplashView.swift */; };
 		BCD815A52F692FAB0028AE50 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815A42F692FA80028AE50 /* LoginView.swift */; };
 		BCD815A72F692FB50028AE50 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815A62F692FAE0028AE50 /* LoginViewModel.swift */; };
 		BCD815AB2F69343D0028AE50 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815AA2F6934390028AE50 /* RootView.swift */; };
-		BCD815AD2F69345C0028AE50 /* SnapyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815AC2F6934490028AE50 /* SnapyApp.swift */; };
 		BCD815AF2F69346D0028AE50 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815AE2F69346D0028AE50 /* MainTabView.swift */; };
 		BCD815B12F6934790028AE50 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD815B02F6934780028AE50 /* AppState.swift */; };
 		BCD8162B2F6936740028AE50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD8162A2F6936700028AE50 /* User.swift */; };
@@ -63,13 +61,11 @@
 		BC5AFECB2F68670100273744 /* SNAPY_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNAPY_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5AFED52F68670100273744 /* SNAPY_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNAPY_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD815942F69285F0028AE50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BCD815952F69285F0028AE50 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BCD815962F69285F0028AE50 /* SNAPY_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAPY_iOSApp.swift; sourceTree = "<group>"; };
 		BCD815A22F69294B0028AE50 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		BCD815A42F692FA80028AE50 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BCD815A62F692FAE0028AE50 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BCD815AA2F6934390028AE50 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		BCD815AC2F6934490028AE50 /* SnapyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapyApp.swift; sourceTree = "<group>"; };
 		BCD815AE2F69346D0028AE50 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		BCD815B02F6934780028AE50 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BCD8162A2F6936700028AE50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -232,8 +228,8 @@
 			children = (
 				BCD815B02F6934780028AE50 /* AppState.swift */,
 				BCD815AE2F69346D0028AE50 /* MainTabView.swift */,
-				BCD815AC2F6934490028AE50 /* SnapyApp.swift */,
 				BCD815AA2F6934390028AE50 /* RootView.swift */,
+				BCD815962F69285F0028AE50 /* SNAPY_iOSApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -258,8 +254,6 @@
 				BCD815922F69285F0028AE50 /* App */,
 				BCD815932F69285F0028AE50 /* Feature */,
 				BCD815942F69285F0028AE50 /* Assets.xcassets */,
-				BCD815952F69285F0028AE50 /* ContentView.swift */,
-				BCD815962F69285F0028AE50 /* SNAPY_iOSApp.swift */,
 			);
 			path = SNAPY_iOS;
 			sourceTree = "<group>";
@@ -478,13 +472,11 @@
 				BCD815A32F6929550028AE50 /* SplashView.swift in Sources */,
 				BC1DC2F12F68CF730016A4CD /* Color+Extensions.swift in Sources */,
 				BCD815AF2F69346D0028AE50 /* MainTabView.swift in Sources */,
-				BCD815992F69285F0028AE50 /* ContentView.swift in Sources */,
 				BCD815AB2F69343D0028AE50 /* RootView.swift in Sources */,
 				BCD815B12F6934790028AE50 /* AppState.swift in Sources */,
 				BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */,
 				BC1DC2F22F68CF730016A4CD /* AuthAPI.swift in Sources */,
 				BCD815A52F692FAB0028AE50 /* LoginView.swift in Sources */,
-				BCD815AD2F69345C0028AE50 /* SnapyApp.swift in Sources */,
 				BC1DC2F92F68CF730016A4CD /* UserDTO.swift in Sources */,
 				BCD8162D2F6937940028AE50 /* SnapyButton.swift in Sources */,
 				BCD815A72F692FB50028AE50 /* LoginViewModel.swift in Sources */,

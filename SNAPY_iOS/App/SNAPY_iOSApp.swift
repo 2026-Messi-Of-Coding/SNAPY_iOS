@@ -11,8 +11,8 @@ import SwiftUI
 struct SNAPY_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.dark) // 다크모드 강제 설정
+            LoginView()
+                .preferredColorScheme(.dark) // 다크모드 설정
         }
     }
 }
