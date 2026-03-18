@@ -12,7 +12,7 @@ struct SNAPY_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
-                .preferredColorScheme(.dark) // 다크모드 설정
+                .preferredColorScheme(.dark)
         }
     }
 }

@@ -43,6 +43,8 @@
 		BCD816DC2F6A41A50028AE50 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816DB2F6A41A00028AE50 /* ProfileViewModel.swift */; };
 		BCD816E52F6A437D0028AE50 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816E42F6A43780028AE50 /* AlbumView.swift */; };
 		BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */; };
+		BCD816EB2F6A52390028AE50 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816EA2F6A52350028AE50 /* OnboardingView.swift */; };
+		BCD816ED2F6A52420028AE50 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816EC2F6A523C0028AE50 /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,8 @@
 		BCD816DB2F6A41A00028AE50 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		BCD816E42F6A43780028AE50 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		BCD816EA2F6A52350028AE50 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		BCD816EC2F6A523C0028AE50 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -265,6 +269,7 @@
 		BCD815932F69285F0028AE50 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816E92F6A52070028AE50 /* Onboarding */,
 				BCD816E32F6A43720028AE50 /* Album */,
 				BCD815A12F6929330028AE50 /* Splash */,
 				BCD815A02F69291E0028AE50 /* Profile */,
@@ -415,6 +420,15 @@
 			children = (
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816E92F6A52070028AE50 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				BCD816EC2F6A523C0028AE50 /* OnboardingViewModel.swift */,
+				BCD816EA2F6A52350028AE50 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,11 +593,13 @@
 				BCD816D22F6A416F0028AE50 /* CameraView.swift in Sources */,
 				BCD815AB2F69343D0028AE50 /* RootView.swift in Sources */,
 				BCD816D82F6A41940028AE50 /* FriendViewModel.swift in Sources */,
+				BCD816EB2F6A52390028AE50 /* OnboardingView.swift in Sources */,
 				BCD816DA2F6A419C0028AE50 /* ProfileView.swift in Sources */,
 				BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */,
 				BCD815B12F6934790028AE50 /* AppState.swift in Sources */,
 				BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */,
 				BC1DC2F22F68CF730016A4CD /* AuthAPI.swift in Sources */,
+				BCD816ED2F6A52420028AE50 /* OnboardingViewModel.swift in Sources */,
 				BCD815A52F692FAB0028AE50 /* LoginView.swift in Sources */,
 				BCD816E52F6A437D0028AE50 /* AlbumView.swift in Sources */,
 				BC1DC2F92F68CF730016A4CD /* UserDTO.swift in Sources */,

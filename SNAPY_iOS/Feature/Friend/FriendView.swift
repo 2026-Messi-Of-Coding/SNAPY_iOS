@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FriendView: View {
     var body: some View {
-        Text("Profile")
+        Text("Friend")
     }
 }
 
