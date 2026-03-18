@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "heroicons_users-20-solid.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

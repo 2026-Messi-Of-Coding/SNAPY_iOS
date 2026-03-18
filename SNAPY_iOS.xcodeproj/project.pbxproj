@@ -31,6 +31,18 @@
 		BCD8162D2F6937940028AE50 /* SnapyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD8162C2F6937940028AE50 /* SnapyButton.swift */; };
 		BCD816BF2F69A8D30028AE50 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816BE2F69A8D30028AE50 /* AppleSignInButton.swift */; };
 		BCD816C12F69AA6B0028AE50 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816C02F69AA5D0028AE50 /* AppleLoginButton.swift */; };
+		BCD816C32F6A40D50028AE50 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816C22F6A40CE0028AE50 /* SignUpView.swift */; };
+		BCD816C82F6A40FF0028AE50 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816C72F6A40F80028AE50 /* SignUpViewModel.swift */; };
+		BCD816CA2F6A41470028AE50 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816C92F6A41440028AE50 /* HomeView.swift */; };
+		BCD816CC2F6A414D0028AE50 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816CB2F6A414A0028AE50 /* HomeViewModel.swift */; };
+		BCD816D22F6A416F0028AE50 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816D12F6A416A0028AE50 /* CameraView.swift */; };
+		BCD816D42F6A41810028AE50 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816D32F6A417A0028AE50 /* CameraViewModel.swift */; };
+		BCD816D62F6A418A0028AE50 /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816D52F6A41860028AE50 /* FriendView.swift */; };
+		BCD816D82F6A41940028AE50 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816D72F6A418E0028AE50 /* FriendViewModel.swift */; };
+		BCD816DA2F6A419C0028AE50 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816D92F6A41990028AE50 /* ProfileView.swift */; };
+		BCD816DC2F6A41A50028AE50 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816DB2F6A41A00028AE50 /* ProfileViewModel.swift */; };
+		BCD816E52F6A437D0028AE50 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816E42F6A43780028AE50 /* AlbumView.swift */; };
+		BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +86,18 @@
 		BCD8162C2F6937940028AE50 /* SnapyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapyButton.swift; sourceTree = "<group>"; };
 		BCD816BE2F69A8D30028AE50 /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
 		BCD816C02F69AA5D0028AE50 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
+		BCD816C22F6A40CE0028AE50 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		BCD816C72F6A40F80028AE50 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		BCD816C92F6A41440028AE50 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BCD816CB2F6A414A0028AE50 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BCD816D12F6A416A0028AE50 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		BCD816D32F6A417A0028AE50 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		BCD816D52F6A41860028AE50 /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
+		BCD816D72F6A418E0028AE50 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+		BCD816D92F6A41990028AE50 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		BCD816DB2F6A41A00028AE50 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		BCD816E42F6A43780028AE50 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -241,6 +265,7 @@
 		BCD815932F69285F0028AE50 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816E32F6A43720028AE50 /* Album */,
 				BCD815A12F6929330028AE50 /* Splash */,
 				BCD815A02F69291E0028AE50 /* Profile */,
 				BCD8159F2F6929040028AE50 /* Friend */,
@@ -275,6 +300,9 @@
 		BCD8159C2F6928AC0028AE50 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816C62F6A40F20028AE50 /* Component */,
+				BCD816C72F6A40F80028AE50 /* SignUpViewModel.swift */,
+				BCD816C22F6A40CE0028AE50 /* SignUpView.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -282,6 +310,9 @@
 		BCD8159D2F6928B40028AE50 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816CD2F6A41500028AE50 /* Component */,
+				BCD816CB2F6A414A0028AE50 /* HomeViewModel.swift */,
+				BCD816C92F6A41440028AE50 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -289,6 +320,9 @@
 		BCD8159E2F6928F10028AE50 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816CE2F6A41590028AE50 /* Component */,
+				BCD816D32F6A417A0028AE50 /* CameraViewModel.swift */,
+				BCD816D12F6A416A0028AE50 /* CameraView.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -296,6 +330,9 @@
 		BCD8159F2F6929040028AE50 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816CF2F6A415A0028AE50 /* Component */,
+				BCD816D72F6A418E0028AE50 /* FriendViewModel.swift */,
+				BCD816D52F6A41860028AE50 /* FriendView.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -303,6 +340,9 @@
 		BCD815A02F69291E0028AE50 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				BCD816D02F6A415B0028AE50 /* Component */,
+				BCD816DB2F6A41A00028AE50 /* ProfileViewModel.swift */,
+				BCD816D92F6A41990028AE50 /* ProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -321,6 +361,58 @@
 				BCD816C02F69AA5D0028AE50 /* AppleLoginButton.swift */,
 				BCD816BE2F69A8D30028AE50 /* AppleSignInButton.swift */,
 				BCD8162C2F6937940028AE50 /* SnapyButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816C62F6A40F20028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816CD2F6A41500028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816CE2F6A41590028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816CF2F6A415A0028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816D02F6A415B0028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		BCD816E32F6A43720028AE50 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				BCD816E82F6A43890028AE50 /* Component */,
+				BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */,
+				BCD816E42F6A43780028AE50 /* AlbumView.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		BCD816E82F6A43890028AE50 /* Component */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -476,22 +568,34 @@
 			files = (
 				BC1DC2EE2F68CF730016A4CD /* TokenStorage.swift in Sources */,
 				BCD815A32F6929550028AE50 /* SplashView.swift in Sources */,
+				BCD816DC2F6A41A50028AE50 /* ProfileViewModel.swift in Sources */,
 				BC1DC2F12F68CF730016A4CD /* Color+Extensions.swift in Sources */,
 				BCD815AF2F69346D0028AE50 /* MainTabView.swift in Sources */,
 				BCD816BF2F69A8D30028AE50 /* AppleSignInButton.swift in Sources */,
+				BCD816CC2F6A414D0028AE50 /* HomeViewModel.swift in Sources */,
+				BCD816D62F6A418A0028AE50 /* FriendView.swift in Sources */,
+				BCD816CA2F6A41470028AE50 /* HomeView.swift in Sources */,
 				BCD816C12F69AA6B0028AE50 /* AppleLoginButton.swift in Sources */,
+				BCD816D22F6A416F0028AE50 /* CameraView.swift in Sources */,
 				BCD815AB2F69343D0028AE50 /* RootView.swift in Sources */,
+				BCD816D82F6A41940028AE50 /* FriendViewModel.swift in Sources */,
+				BCD816DA2F6A419C0028AE50 /* ProfileView.swift in Sources */,
+				BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */,
 				BCD815B12F6934790028AE50 /* AppState.swift in Sources */,
 				BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */,
 				BC1DC2F22F68CF730016A4CD /* AuthAPI.swift in Sources */,
 				BCD815A52F692FAB0028AE50 /* LoginView.swift in Sources */,
+				BCD816E52F6A437D0028AE50 /* AlbumView.swift in Sources */,
 				BC1DC2F92F68CF730016A4CD /* UserDTO.swift in Sources */,
 				BCD8162D2F6937940028AE50 /* SnapyButton.swift in Sources */,
+				BCD816C82F6A40FF0028AE50 /* SignUpViewModel.swift in Sources */,
 				BCD815A72F692FB50028AE50 /* LoginViewModel.swift in Sources */,
 				BC1DC2FB2F68CF730016A4CD /* AuthService.swift in Sources */,
 				BCD8162B2F6936740028AE50 /* User.swift in Sources */,
+				BCD816C32F6A40D50028AE50 /* SignUpView.swift in Sources */,
 				BC1DC2FC2F68CF730016A4CD /* Date+Extensions.swift in Sources */,
 				BC1DC2FE2F68CF730016A4CD /* ImagePicker.swift in Sources */,
+				BCD816D42F6A41810028AE50 /* CameraViewModel.swift in Sources */,
 				BC1DC2FF2F68CF730016A4CD /* AuthDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
