@@ -15,6 +15,9 @@
 		BC1DC2FC2F68CF730016A4CD /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DC2CE2F68CF730016A4CD /* Date+Extensions.swift */; };
 		BC1DC2FE2F68CF730016A4CD /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DC2EB2F68CF730016A4CD /* ImagePicker.swift */; };
 		BC1DC2FF2F68CF730016A4CD /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DC2D72F68CF730016A4CD /* AuthDTO.swift */; };
+		BCCAD5822F6ABB4B00ED71E0 /* SnapyLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAD5812F6ABB3D00ED71E0 /* SnapyLoginView.swift */; };
+		BCCAD5842F6ABB5F00ED71E0 /* SnapyLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAD5832F6ABB5800ED71E0 /* SnapyLoginViewModel.swift */; };
+		BCCAD5FE2F6ABC3000ED71E0 /* SnapyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAD5FD2F6ABC2F00ED71E0 /* SnapyTextField.swift */; };
 		BCD8158B2F68DF9B0028AE50 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCD8158A2F68DF9B0028AE50 /* CombineMoya */; };
 		BCD8158D2F68DF9B0028AE50 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = BCD8158C2F68DF9B0028AE50 /* Moya */; };
 		BCD8158F2F68DF9B0028AE50 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BCD8158E2F68DF9B0028AE50 /* ReactiveMoya */; };
@@ -76,6 +79,9 @@
 		BC5AFEBE2F6866FF00273744 /* SNAPY_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNAPY_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5AFECB2F68670100273744 /* SNAPY_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNAPY_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5AFED52F68670100273744 /* SNAPY_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNAPY_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCCAD5812F6ABB3D00ED71E0 /* SnapyLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapyLoginView.swift; sourceTree = "<group>"; };
+		BCCAD5832F6ABB5800ED71E0 /* SnapyLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapyLoginViewModel.swift; sourceTree = "<group>"; };
+		BCCAD5FD2F6ABC2F00ED71E0 /* SnapyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapyTextField.swift; sourceTree = "<group>"; };
 		BCD815942F69285F0028AE50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCD815962F69285F0028AE50 /* SNAPY_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAPY_iOSApp.swift; sourceTree = "<group>"; };
 		BCD815A22F69294B0028AE50 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -295,6 +301,8 @@
 		BCD8159B2F69289D0028AE50 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				BCCAD5832F6ABB5800ED71E0 /* SnapyLoginViewModel.swift */,
+				BCCAD5812F6ABB3D00ED71E0 /* SnapyLoginView.swift */,
 				BCD815A82F692FC60028AE50 /* Component */,
 				BCD815A62F692FAE0028AE50 /* LoginViewModel.swift */,
 				BCD815A42F692FA80028AE50 /* LoginView.swift */,
@@ -366,6 +374,7 @@
 				BCD816C02F69AA5D0028AE50 /* AppleLoginButton.swift */,
 				BCD816BE2F69A8D30028AE50 /* AppleSignInButton.swift */,
 				BCD8162C2F6937940028AE50 /* SnapyButton.swift */,
+				BCCAD5FD2F6ABC2F00ED71E0 /* SnapyTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -586,6 +595,7 @@
 				BC1DC2F12F68CF730016A4CD /* Color+Extensions.swift in Sources */,
 				BCD815AF2F69346D0028AE50 /* MainTabView.swift in Sources */,
 				BCD816BF2F69A8D30028AE50 /* AppleSignInButton.swift in Sources */,
+				BCCAD5822F6ABB4B00ED71E0 /* SnapyLoginView.swift in Sources */,
 				BCD816CC2F6A414D0028AE50 /* HomeViewModel.swift in Sources */,
 				BCD816D62F6A418A0028AE50 /* FriendView.swift in Sources */,
 				BCD816CA2F6A41470028AE50 /* HomeView.swift in Sources */,
@@ -597,6 +607,7 @@
 				BCD816DA2F6A419C0028AE50 /* ProfileView.swift in Sources */,
 				BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */,
 				BCD815B12F6934790028AE50 /* AppState.swift in Sources */,
+				BCCAD5842F6ABB5F00ED71E0 /* SnapyLoginViewModel.swift in Sources */,
 				BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */,
 				BC1DC2F22F68CF730016A4CD /* AuthAPI.swift in Sources */,
 				BCD816ED2F6A52420028AE50 /* OnboardingViewModel.swift in Sources */,
@@ -609,6 +620,7 @@
 				BC1DC2FB2F68CF730016A4CD /* AuthService.swift in Sources */,
 				BCD8162B2F6936740028AE50 /* User.swift in Sources */,
 				BCD816C32F6A40D50028AE50 /* SignUpView.swift in Sources */,
+				BCCAD5FE2F6ABC3000ED71E0 /* SnapyTextField.swift in Sources */,
 				BC1DC2FC2F68CF730016A4CD /* Date+Extensions.swift in Sources */,
 				BC1DC2FE2F68CF730016A4CD /* ImagePicker.swift in Sources */,
 				BCD816D42F6A41810028AE50 /* CameraViewModel.swift in Sources */,

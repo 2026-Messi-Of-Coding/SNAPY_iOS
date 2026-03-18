@@ -21,16 +21,19 @@ struct SnapyButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 12) {
-                Image("Login_Logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 22)
-                    .offset(x: -80)
-                
+            ZStack {
                 Text(title)
                     .font(.system(size: 14, weight: .bold))
-                    .offset(x: -10)
+                    .frame(maxWidth: .infinity)
+
+                HStack {
+                    Image("Login_Logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 22)
+                        .padding(.leading, 20)
+                    Spacer()
+                }
             }
             .frame(maxWidth: .infinity)
             .frame(height: 56)
@@ -45,6 +48,9 @@ struct SnapyButton: View {
 
 struct SnapyButton_Previews: PreviewProvider {
     static var previews: some View {
-        SnapyButton(title: "SNAPY로 계속하기", action: {})
+        ZStack {
+            Color.black.ignoresSafeArea()
+            SnapyButton(title: "SNAPY로 계속하기", action: {})
+        }
     }
 }
