@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC01001F2F6C5D4200A85201 /* SignUpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01001E2F6C5D3C00A85201 /* SignUpHeader.swift */; };
 		BC01FFA52F6BBA6600A85201 /* SignUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01FFA42F6BBA6600A85201 /* SignUpButton.swift */; };
 		BC1DC2EE2F68CF730016A4CD /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DC2D22F68CF730016A4CD /* TokenStorage.swift */; };
 		BC1DC2F12F68CF730016A4CD /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DC2CD2F68CF730016A4CD /* Color+Extensions.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC01001E2F6C5D3C00A85201 /* SignUpHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpHeader.swift; sourceTree = "<group>"; };
 		BC01FFA42F6BBA6600A85201 /* SignUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpButton.swift; sourceTree = "<group>"; };
 		BC1DC2CD2F68CF730016A4CD /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		BC1DC2CE2F68CF730016A4CD /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 		BCD816C62F6A40F20028AE50 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				BC01001E2F6C5D3C00A85201 /* SignUpHeader.swift */,
 				BC01FFA42F6BBA6600A85201 /* SignUpButton.swift */,
 			);
 			path = Component;
@@ -682,6 +685,7 @@
 				BC1DC2F22F68CF730016A4CD /* AuthAPI.swift in Sources */,
 				BCD816ED2F6A52420028AE50 /* OnboardingViewModel.swift in Sources */,
 				BCD815A52F692FAB0028AE50 /* LoginView.swift in Sources */,
+				BC01001F2F6C5D4200A85201 /* SignUpHeader.swift in Sources */,
 				BCD816E52F6A437D0028AE50 /* AlbumView.swift in Sources */,
 				BC1DC2F92F68CF730016A4CD /* UserDTO.swift in Sources */,
 				BCD8162D2F6937940028AE50 /* SnapyButton.swift in Sources */,

@@ -18,11 +18,14 @@ struct EmailView: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 
-                Spacer()
-                    .frame(height: 40)
+                SignUpHeader {
+                    withAnimation {
+                        authVM.authFlow = .registerPassword
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("이름을 입력해주세요")
+                    Text("이메을을 입력해주세요")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(Color.textWhite)
                         .lineSpacing(12)
@@ -34,7 +37,7 @@ struct EmailView: View {
                     SnapyTextField(
                         label: "이메일",
                         placeholder: "이메일을 입력해주세요",
-                        text: $authVM.loginEmail,
+                        text: $authVM.registerEmail,
                         keyboardType: .emailAddress
                     )
                 }
@@ -52,10 +55,9 @@ struct EmailView: View {
 
                 Spacer()
 
-                // 로그인 버튼
                 SignUpButton(
                     title: "확인",
-                    isEnabled: !authVM.loginEmail.isEmpty
+                    isEnabled: authVM.isEmailValid
                 ) {
                     withAnimation {
                         onLoginTap()

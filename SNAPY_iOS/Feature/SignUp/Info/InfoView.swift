@@ -18,8 +18,11 @@ struct InfoView: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 
-                Spacer()
-                    .frame(height: 40)
+                SignUpHeader {
+                    withAnimation {
+                        authVM.authFlow = .registerComplete
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("사용자 정보 입력해주세요")

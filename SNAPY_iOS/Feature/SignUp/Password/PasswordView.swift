@@ -18,8 +18,11 @@ struct PasswordView: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 
-                Spacer()
-                    .frame(height: 40)
+                SignUpHeader {
+                    withAnimation {
+                        authVM.authFlow = .registerPhone
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("비밀번호를 입력해주세요")
@@ -34,7 +37,7 @@ struct PasswordView: View {
                     SnapyTextField(
                         label: "비밀번호",
                         placeholder: "비밀번호를 입력해주세요",
-                        text: $authVM.loginPassword,
+                        text: $authVM.registerPassword,
                         isSecure: true
                     )
                     
@@ -62,8 +65,7 @@ struct PasswordView: View {
                 // 로그인 버튼
                 SignUpButton(
                     title: "확인",
-                    isEnabled: !authVM.loginPassword.isEmpty &&
-                                !authVM.registerPasswordConfirm.isEmpty
+                    isEnabled: authVM.isPasswordValid
                 ) {
                     withAnimation {
                         onLoginTap()

@@ -37,6 +37,7 @@ final class AuthViewModel: ObservableObject {
     @Published var registerUserID = ""
     @Published var registerUsername = ""
     @Published var registerName = ""
+    @Published var verificationCode = ""
 
     // Login fields
     @Published var loginEmail = ""
@@ -47,7 +48,7 @@ final class AuthViewModel: ObservableObject {
 //    private let authService = AuthService.shared
 
     var isEmailValid: Bool {
-        registerEmail.contains("@") && registerEmail.contains(".")
+        registerEmail.contains("@") && registerEmail.contains(".") && registerEmail.count > 5
     }
 
     var isPasswordValid: Bool {
@@ -55,7 +56,9 @@ final class AuthViewModel: ObservableObject {
     }
 
     var isPhoneValid: Bool {
-        !registerPhone.isEmpty && !registerUserID.isEmpty
+        return !registerCarrier.isEmpty
+        && registerPhone.count >= 10
+        && verificationCode.count >= 4
     }
 
     var isProfileValid: Bool {
@@ -65,6 +68,8 @@ final class AuthViewModel: ObservableObject {
     var isLoginValid: Bool {
         !loginEmail.isEmpty && !loginPassword.isEmpty
     }
+    
+    
 
     @MainActor
     func checkAuthStatus() {
