@@ -1,11 +1,3 @@
-
-//
-//  CameraView.swift
-//  SNAPY_iOS
-//
-//  Created by 김은찬 on 3/18/26.
-//
-
 import SwiftUI
 import AVFoundation
 
@@ -37,17 +29,16 @@ struct CameraView: View {
     private var cameraContentView: some View {
         VStack(spacing: 0) {
             Text("추억이 남을 사진을 찍어보세요!")
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.white)
-                .padding(.top, 40)
+                .padding(.top, 20)
 
             Spacer()
 
-            // 멀티캠 화면
+            // Dual camera preview
             ZStack {
-                // 메인 카메라
+                // Back camera (main - full size)
                 if let backLayer = cameraVM.dualCamera.backPreviewLayer {
-                    // 후면 카메라
                     CameraPreviewView(previewLayer: backLayer)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                 } else {
@@ -65,14 +56,13 @@ struct CameraView: View {
                         )
                 }
 
-                // 작은 카메라
+                // Front camera (small overlay - top left)
                 VStack {
                     HStack {
                         ZStack {
                             if let frontLayer = cameraVM.dualCamera.frontPreviewLayer {
-                                // 전면 카메라
                                 CameraPreviewView(previewLayer: frontLayer)
-                                    .frame(width: 120, height: 160)
+                                    .frame(width: 100, height: 130)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             } else {
                                 RoundedRectangle(cornerRadius: 10)
@@ -106,11 +96,12 @@ struct CameraView: View {
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.white)
                 .padding(.top, 20)
-            
+
+            // Capture controls
             HStack(spacing: 60) {
                 Spacer()
 
-                // 촬영버튼
+                // Shutter button
                 Button {
                     cameraVM.capturePhoto()
                 } label: {
@@ -125,8 +116,7 @@ struct CameraView: View {
                 }
                 .disabled(cameraVM.capturedPhotos.count >= cameraVM.maxPhotos)
 
-                // 카메라 전 후면 바꾸기 - 임시 버튼
-                // TODO: 카메라 전후면 바꾸기 로직 구현
+                // Switch camera info
                 ZStack {
                     Circle()
                         .fill(Color(white: 0.2))
@@ -141,12 +131,5 @@ struct CameraView: View {
             .padding(.top, 24)
             .padding(.bottom, 40)
         }
-    }
-}
-
-
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
     }
 }
