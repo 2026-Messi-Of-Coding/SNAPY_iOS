@@ -14,7 +14,7 @@ struct InfoView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color.backgroundBlack.ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 0) {
                 

@@ -15,6 +15,7 @@ enum AppScreen {
     case registerPassword
     case registerPhone
     case registerInfo
+    case registerCompleteView
     case onboarding
     case main
 }
@@ -90,6 +91,14 @@ struct RootView: View {
                         screen = .registerPhone
                     },
                     onSignNextTap: {
+                        screen = .registerCompleteView
+                    }
+                )
+                .environmentObject(authVM)
+                
+            case .registerCompleteView:
+                registerCompleteView(
+                    onDoneTap: {
                         screen = .snapyLogin
                     }
                 )
