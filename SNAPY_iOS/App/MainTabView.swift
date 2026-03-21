@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var selectedTab: Int = 0
     @State private var showCamera: Bool = false
+    @StateObject private var cameraVM = CameraViewModel()
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -62,6 +63,7 @@ struct MainTabView: View {
         }
         .sheet(isPresented: $showCamera) {
             CameraView()
+                .environmentObject(cameraVM)
         }
     }
 }

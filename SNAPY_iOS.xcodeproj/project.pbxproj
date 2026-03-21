@@ -57,6 +57,11 @@
 		BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */; };
 		BCD816EB2F6A52390028AE50 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816EA2F6A52350028AE50 /* OnboardingView.swift */; };
 		BCD816ED2F6A52420028AE50 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD816EC2F6A523C0028AE50 /* OnboardingViewModel.swift */; };
+		BCED9C1B2F6E61A9008E47BB /* PostConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED9C1A2F6E61A9008E47BB /* PostConfirmView.swift */; };
+		BCED9C1C2F6E61A9008E47BB /* PhotoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED9C192F6E61A9008E47BB /* PhotoPreviewView.swift */; };
+		BCED9C1E2F6E61A9008E47BB /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED9C172F6E61A9008E47BB /* CameraPreviewView.swift */; };
+		BCED9C202F6E6215008E47BB /* DualCameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED9C1F2F6E6214008E47BB /* DualCameraService.swift */; };
+		BCED9C222F6E625A008E47BB /* PhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED9C212F6E6259008E47BB /* PhotoStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +131,11 @@
 		BCD816E62F6A43800028AE50 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		BCD816EA2F6A52350028AE50 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		BCD816EC2F6A523C0028AE50 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		BCED9C172F6E61A9008E47BB /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		BCED9C192F6E61A9008E47BB /* PhotoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewView.swift; sourceTree = "<group>"; };
+		BCED9C1A2F6E61A9008E47BB /* PostConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmView.swift; sourceTree = "<group>"; };
+		BCED9C1F2F6E6214008E47BB /* DualCameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualCameraService.swift; sourceTree = "<group>"; };
+		BCED9C212F6E6259008E47BB /* PhotoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -225,6 +235,8 @@
 		BC1DC2E82F68CF730016A4CD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BCED9C212F6E6259008E47BB /* PhotoStore.swift */,
+				BCED9C1F2F6E6214008E47BB /* DualCameraService.swift */,
 				BC1DC2E52F68CF730016A4CD /* AuthService.swift */,
 			);
 			path = Service;
@@ -398,6 +410,9 @@
 		BCD8159E2F6928F10028AE50 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				BCED9C172F6E61A9008E47BB /* CameraPreviewView.swift */,
+				BCED9C192F6E61A9008E47BB /* PhotoPreviewView.swift */,
+				BCED9C1A2F6E61A9008E47BB /* PostConfirmView.swift */,
 				BCD816CE2F6A41590028AE50 /* Component */,
 				BCD816D32F6A417A0028AE50 /* CameraViewModel.swift */,
 				BCD816D12F6A416A0028AE50 /* CameraView.swift */,
@@ -666,6 +681,7 @@
 				BCCAD6112F6B071700ED71E0 /* PhoneView.swift in Sources */,
 				BCD816BF2F69A8D30028AE50 /* AppleSignInButton.swift in Sources */,
 				BCCAD6132F6B072000ED71E0 /* PhoneViewModel.swift in Sources */,
+				BCED9C222F6E625A008E47BB /* PhotoStore.swift in Sources */,
 				BCCAD5822F6ABB4B00ED71E0 /* SnapyLoginView.swift in Sources */,
 				BCCAD60E2F6B063700ED71E0 /* PasswordViewModel.swift in Sources */,
 				BCD816CC2F6A414D0028AE50 /* HomeViewModel.swift in Sources */,
@@ -679,6 +695,7 @@
 				BCD816EB2F6A52390028AE50 /* OnboardingView.swift in Sources */,
 				BCD816DA2F6A419C0028AE50 /* ProfileView.swift in Sources */,
 				BCD816E72F6A43860028AE50 /* AlbumViewModel.swift in Sources */,
+				BCED9C202F6E6215008E47BB /* DualCameraService.swift in Sources */,
 				BCD815B12F6934790028AE50 /* AppState.swift in Sources */,
 				BCCAD5842F6ABB5F00ED71E0 /* SnapyLoginViewModel.swift in Sources */,
 				BCD8159A2F69285F0028AE50 /* SNAPY_iOSApp.swift in Sources */,
@@ -690,6 +707,9 @@
 				BC1DC2F92F68CF730016A4CD /* UserDTO.swift in Sources */,
 				BCD8162D2F6937940028AE50 /* SnapyButton.swift in Sources */,
 				BCD815A72F692FB50028AE50 /* LoginViewModel.swift in Sources */,
+				BCED9C1B2F6E61A9008E47BB /* PostConfirmView.swift in Sources */,
+				BCED9C1C2F6E61A9008E47BB /* PhotoPreviewView.swift in Sources */,
+				BCED9C1E2F6E61A9008E47BB /* CameraPreviewView.swift in Sources */,
 				BCCAD6092F6B060F00ED71E0 /* EmailViewModel.swift in Sources */,
 				BC1DC2FB2F68CF730016A4CD /* AuthService.swift in Sources */,
 				BCCAD6782F6BA34400ED71E0 /* InfoView.swift in Sources */,
