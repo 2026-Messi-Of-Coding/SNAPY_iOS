@@ -9,12 +9,39 @@ import Foundation
 import SwiftUI
 import Combine
 
+enum HandleAvailabilityState: Equatable {
+    case idle
+    case checking
+    case available
+    case unavailable
+    case failed(String)
+}
+
+enum HandleValidator {
+    static func normalized(_ handle: String) -> String {
+        handle.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    static func validationMessage(for handle: String) -> String? {
+        guard !handle.isEmpty else { return nil }
+        if handle.count < 5 || handle.count > 24 {
+            return "아이디는 5자 이상, 24자 이하로 설정 해야합니다"
+        }
+        if handle.contains(where: { $0.isWhitespace }) {
+            return "아이디에 공백을 사용할 수 없습니다"
+        }
+        if handle.range(of: #"^[A-Za-z0-9._]+$"#, options: .regularExpression) == nil {
+            return "영문, 숫자, 밑줄(_), 마침표(.)만 사용할 수 있습니다"
+        }
+        return nil
+    }
+}
+
 final class SiginUpViewModel: ObservableObject {
     // 회원가입 입력 필드
     @Published var registerEmail = ""
     @Published var registerPassword = ""
     @Published var registerPasswordConfirm = ""
-    @Published var registerCarrier = "SKT"
     @Published var registerPhone = ""
     @Published var registerUserID = ""    // handle
     @Published var registerUsername = ""   // username
@@ -30,8 +57,10 @@ final class SiginUpViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var isRegistered = false
+    @Published var handleAvailability: HandleAvailabilityState = .idle
 
     private let authService = AuthService.shared
+    private var handleCheckTask: Task<Void, Never>?
 
     // MARK: - 유효성 검사
 
@@ -49,7 +78,9 @@ final class SiginUpViewModel: ObservableObject {
     }
 
     var isProfileValid: Bool {
-        !registerUsername.isEmpty && !registerName.isEmpty
+        !registerUsername.isEmpty &&
+        userIDValidationMessage == nil &&
+        handleAvailability == .available
     }
 
     // MARK: - 필드별 유효성 안내 메시지
@@ -90,14 +121,62 @@ final class SiginUpViewModel: ObservableObject {
     }
 
     var userIDValidationMessage: String? {
-        guard !registerUserID.isEmpty else { return nil }
-        if registerUserID.count < 5 || registerUserID.count > 24 {
-            return "아이디는 5자 이상, 24자 이하로 설정 해야합니다"
+        HandleValidator.validationMessage(for: registerUserID)
+    }
+
+    var handleAvailabilityMessage: String? {
+        switch handleAvailability {
+        case .idle:
+            return nil
+        case .checking:
+            return "아이디 중복 확인 중입니다"
+        case .available:
+            return "사용 가능한 아이디입니다"
+        case .unavailable:
+            return "이미 사용 중인 아이디입니다"
+        case .failed(let message):
+            return message
         }
-        if registerUserID.contains(" ") {
-            return "아이디에 공백을 사용할 수 없습니다"
+    }
+
+    var isCheckingHandle: Bool {
+        handleAvailability == .checking
+    }
+
+    func scheduleHandleAvailabilityCheck() {
+        handleCheckTask?.cancel()
+        handleAvailability = .idle
+
+        let handle = HandleValidator.normalized(registerUserID)
+        guard !handle.isEmpty, HandleValidator.validationMessage(for: handle) == nil else {
+            return
         }
-        return nil
+
+        handleCheckTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            guard !Task.isCancelled else { return }
+            _ = await self?.checkHandleAvailability(handle)
+        }
+    }
+
+    @MainActor
+    func checkHandleAvailability(_ handle: String? = nil) async -> Bool {
+        let targetHandle = HandleValidator.normalized(handle ?? registerUserID)
+        guard HandleValidator.validationMessage(for: targetHandle) == nil else {
+            handleAvailability = .idle
+            return false
+        }
+
+        handleAvailability = .checking
+
+        do {
+            let available = try await ProfileService.shared.checkHandle(targetHandle)
+            handleAvailability = available ? .available : .unavailable
+            return available
+        } catch {
+            handleAvailability = .failed("아이디 중복 확인에 실패했습니다. 다시 시도해주세요")
+            return false
+        }
     }
 
     // MARK: - 서버 에러 한국어 변환
@@ -215,17 +294,27 @@ final class SiginUpViewModel: ObservableObject {
 
         do {
             // 핸들 중복 확인 후 업데이트
-            if !registerUserID.isEmpty {
-                let available = try await ProfileService.shared.checkHandle(registerUserID)
-                if !available {
+            let normalizedHandle = HandleValidator.normalized(registerUserID)
+            if !normalizedHandle.isEmpty {
+                if let validationMessage = HandleValidator.validationMessage(for: normalizedHandle) {
                     await MainActor.run {
-                        errorMessage = "이미 사용 중인 사용자 ID입니다."
+                        errorMessage = validationMessage
                         isLoading = false
                     }
                     return
                 }
-                try await ProfileService.shared.updateHandle(registerUserID)
-                print("[SignUp] 핸들 업데이트 성공: \(registerUserID)")
+
+                let available = try await ProfileService.shared.checkHandle(normalizedHandle)
+                if !available {
+                    await MainActor.run {
+                        handleAvailability = .unavailable
+                        errorMessage = "이미 사용 중인 아이디입니다"
+                        isLoading = false
+                    }
+                    return
+                }
+                try await ProfileService.shared.updateHandle(normalizedHandle)
+                print("[SignUp] 핸들 업데이트 성공: \(normalizedHandle)")
             }
             if !registerUsername.isEmpty {
                 try await ProfileService.shared.updateUsername(registerUsername)
@@ -233,7 +322,9 @@ final class SiginUpViewModel: ObservableObject {
             }
             // 전화번호는 PhoneView에서 이미 등록됨
             await MainActor.run {
-                UserDefaults.standard.set(registerUserID, forKey: "myHandle")
+                registerUserID = normalizedHandle
+                handleAvailability = .available
+                UserDefaults.standard.set(normalizedHandle, forKey: "myHandle")
                 isLoading = false
             }
         } catch {
@@ -272,6 +363,7 @@ final class SiginUpViewModel: ObservableObject {
         registerUsername = ""
         registerName = ""
         verificationCode = ""
+        handleAvailability = .idle
         isRegistered = false
     }
 }

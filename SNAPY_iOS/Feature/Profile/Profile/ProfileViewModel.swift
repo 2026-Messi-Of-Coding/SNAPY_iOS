@@ -74,8 +74,8 @@ struct GuestbookEntry: Identifiable {
 @MainActor
 final class ProfileViewModel: ObservableObject {
     // 프로필 정보
-    @Published var username: String = "김은찬"
-    @Published var handle: String = "silver_c.ld"
+    @Published var username: String = "SNAPY 유저"
+    @Published var handle: String = ""
     @Published var postCount: Int = 0
     @Published var friendCount: Int = 0
     @Published var streakCount: Int = 0
@@ -115,6 +115,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var showEditProfile = false
     @Published var editUsername: String = ""
     @Published var editHandle: String = ""
+    @Published var editHandleAvailability: HandleAvailabilityState = .idle
+    private var editHandleCheckTask: Task<Void, Never>?
 
     // 이미지 피커
     @Published var profilePickerItem: PhotosPickerItem? = nil
@@ -378,17 +380,102 @@ final class ProfileViewModel: ObservableObject {
     func startEdit() {
         editUsername = username
         editHandle = handle
+        editHandleAvailability = .idle
         showEditProfile = true
     }
 
     @Published var isSaving = false
     @Published var saveError: String? = nil
 
+    var editHandleValidationMessage: String? {
+        HandleValidator.validationMessage(for: editHandle)
+    }
+
+    var editHandleAvailabilityMessage: String? {
+        switch editHandleAvailability {
+        case .idle:
+            return nil
+        case .checking:
+            return "아이디 중복 확인 중입니다"
+        case .available:
+            return "사용 가능한 아이디입니다"
+        case .unavailable:
+            return "이미 사용 중인 아이디입니다"
+        case .failed(let message):
+            return message
+        }
+    }
+
+    var isCheckingEditHandle: Bool {
+        editHandleAvailability == .checking
+    }
+
+    var canSaveEdit: Bool {
+        let normalizedHandle = HandleValidator.normalized(editHandle)
+        let handleChanged = normalizedHandle != handle
+
+        guard !editUsername.isEmpty,
+              !normalizedHandle.isEmpty,
+              editHandleValidationMessage == nil,
+              !isSaving else {
+            return false
+        }
+
+        return !handleChanged || editHandleAvailability == .available
+    }
+
+    func scheduleEditHandleAvailabilityCheck() {
+        editHandleCheckTask?.cancel()
+        editHandleAvailability = .idle
+
+        let normalizedHandle = HandleValidator.normalized(editHandle)
+        guard normalizedHandle != handle,
+              !normalizedHandle.isEmpty,
+              HandleValidator.validationMessage(for: normalizedHandle) == nil else {
+            return
+        }
+
+        editHandleCheckTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 500_000_000)
+            guard !Task.isCancelled else { return }
+            _ = await self?.checkEditHandleAvailability(normalizedHandle)
+        }
+    }
+
+    @MainActor
+    func checkEditHandleAvailability(_ handle: String? = nil) async -> Bool {
+        let targetHandle = HandleValidator.normalized(handle ?? editHandle)
+        guard targetHandle != self.handle else {
+            editHandleAvailability = .idle
+            return true
+        }
+        guard HandleValidator.validationMessage(for: targetHandle) == nil else {
+            editHandleAvailability = .idle
+            return false
+        }
+
+        editHandleAvailability = .checking
+
+        do {
+            let available = try await ProfileService.shared.checkHandle(targetHandle)
+            editHandleAvailability = available ? .available : .unavailable
+            return available
+        } catch {
+            editHandleAvailability = .failed("아이디 중복 확인에 실패했습니다. 다시 시도해주세요")
+            return false
+        }
+    }
+
     func saveEdit() {
         let newUsername = editUsername
-        let newHandle = editHandle
+        let newHandle = HandleValidator.normalized(editHandle)
         let usernameChanged = newUsername != username
         let handleChanged = newHandle != handle
+
+        if let validationMessage = HandleValidator.validationMessage(for: newHandle) {
+            saveError = validationMessage
+            return
+        }
 
         guard usernameChanged || handleChanged else {
             showEditProfile = false
@@ -405,7 +492,8 @@ final class ProfileViewModel: ObservableObject {
                     let available = try await ProfileService.shared.checkHandle(newHandle)
                     if !available {
                         await MainActor.run {
-                            saveError = "이미 사용 중인 사용자 ID입니다."
+                            editHandleAvailability = .unavailable
+                            saveError = "이미 사용 중인 아이디입니다."
                             isSaving = false
                         }
                         return
@@ -421,6 +509,8 @@ final class ProfileViewModel: ObservableObject {
                 await MainActor.run {
                     username = newUsername
                     handle = newHandle
+                    editHandle = newHandle
+                    editHandleAvailability = .idle
                     if handleChanged {
                         UserDefaults.standard.set(newHandle, forKey: "myHandle")
                     }
