@@ -158,17 +158,6 @@ struct StoryDetailView: View {
         ZStack {
             storyPhotoContent(photo: photos.isEmpty ? nil : photos[safeImageIndex], size: size)
 
-            VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    Color.clear.contentShape(Rectangle())
-                        .onTapGesture { viewModel.goToPrevious() }
-                        .frame(width: size.width * 0.25)
-                    Color.clear.contentShape(Rectangle())
-                        .onTapGesture { viewModel.goToNext() }
-                }
-                Color.clear.frame(height: 120).contentShape(Rectangle()).onTapGesture { }
-            }
-
             // PIP 전후면 전환 (좌/우 탭 영역 위에 배치)
             if let photo = photos.isEmpty ? nil : photos[safeImageIndex],
                let frontUrl = photo.frontImageUrl, let fUrl = URL(string: frontUrl),
@@ -202,12 +191,13 @@ struct StoryDetailView: View {
 
                     if userIndex == viewModel.currentUserIndex {
                         StoryBottomBar(viewModel: viewModel, onShowLikeSheet: { showLikeSheet = true })
-                            .contentShape(Rectangle()).onTapGesture { }
                     }
                 }
             }
         }
         .frame(width: size.width, height: size.height).clipped()
+        .contentShape(Rectangle())
+        .simultaneousGesture(storyTapGesture(size: size, userIndex: userIndex))
     }
 
     // MARK: - 상단 바
@@ -343,6 +333,28 @@ struct StoryDetailView: View {
     }
 
     // MARK: - 제스처
+
+    private func storyTapGesture(size: CGSize, userIndex: Int) -> some Gesture {
+        SpatialTapGesture()
+            .onEnded { value in
+                guard userIndex == viewModel.currentUserIndex else { return }
+
+                let topReservedHeight: CGFloat = 180
+                let bottomReservedHeight: CGFloat = 170
+                let location = value.location
+
+                guard location.y >= topReservedHeight,
+                      location.y <= size.height - bottomReservedHeight else {
+                    return
+                }
+
+                if location.x < size.width * 0.25 {
+                    viewModel.goToPrevious()
+                } else {
+                    viewModel.goToNext()
+                }
+            }
+    }
 
     private var longPressGesture: some Gesture {
         LongPressGesture(minimumDuration: 0.2)

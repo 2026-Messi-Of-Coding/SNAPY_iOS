@@ -52,6 +52,19 @@ struct InfoView: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.red)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                        } else if let msg = signUpVM.handleAvailabilityMessage {
+                            HStack(spacing: 6) {
+                                if signUpVM.isCheckingHandle {
+                                    ProgressView()
+                                        .scaleEffect(0.7)
+                                        .tint(.customGray300)
+                                }
+
+                                Text(msg)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(signUpVM.handleAvailability == .available ? .mainYellow : .red)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
 
@@ -84,8 +97,7 @@ struct InfoView: View {
                 // 로그인 버튼
                 SignUpButton(
                     title: "확인",
-                    isEnabled: !signUpVM.registerUserID.isEmpty &&
-                                !signUpVM.registerUsername.isEmpty
+                    isEnabled: signUpVM.isProfileValid && !signUpVM.isLoading
                 ) {
                     withAnimation {
                         onSignNextTap()
@@ -93,6 +105,9 @@ struct InfoView: View {
                 }
                 .padding(.bottom, 24)
             }
+        }
+        .onChange(of: signUpVM.registerUserID) { _, _ in
+            signUpVM.scheduleHandleAvailabilityCheck()
         }
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

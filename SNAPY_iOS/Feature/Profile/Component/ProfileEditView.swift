@@ -132,6 +132,24 @@ struct ProfileEditView: View {
                         Rectangle()
                             .fill(viewModel.editHandle.isEmpty ? Color(white: 0.3) : Color.mainYellow)
                             .frame(height: 1.5)
+
+                        if let msg = viewModel.editHandleValidationMessage {
+                            Text(msg)
+                                .font(.system(size: 12))
+                                .foregroundColor(.red)
+                        } else if let msg = viewModel.editHandleAvailabilityMessage {
+                            HStack(spacing: 6) {
+                                if viewModel.isCheckingEditHandle {
+                                    ProgressView()
+                                        .scaleEffect(0.7)
+                                        .tint(.customGray300)
+                                }
+
+                                Text(msg)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(viewModel.editHandleAvailability == .available ? .mainYellow : .red)
+                            }
+                        }
                     }
 
                     Spacer()
@@ -152,7 +170,7 @@ struct ProfileEditView: View {
                         viewModel.saveEdit()
                     }
                     .foregroundColor(.mainYellow)
-                    .disabled(viewModel.editUsername.isEmpty || viewModel.editHandle.isEmpty)
+                    .disabled(!viewModel.canSaveEdit)
                 }
             }
         }
@@ -166,6 +184,9 @@ struct ProfileEditView: View {
         }
         .onChange(of: viewModel.showEditProfile) { _, show in
             if !show { dismiss() }
+        }
+        .onChange(of: viewModel.editHandle) { _, _ in
+            viewModel.scheduleEditHandleAvailabilityCheck()
         }
     }
 }
