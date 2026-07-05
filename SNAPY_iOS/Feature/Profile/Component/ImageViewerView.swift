@@ -143,8 +143,8 @@ struct ImageViewerView: View {
     private func clampedOffset(_ raw: CGSize) -> CGSize {
         let imgW = imageFrame.width > 0 ? imageFrame.width : screenSize.width
         let imgH = imageFrame.height > 0 ? imageFrame.height : screenSize.height
-        let scrW = screenSize.width > 0 ? screenSize.width : UIScreen.main.bounds.width
-        let scrH = screenSize.height > 0 ? screenSize.height : UIScreen.main.bounds.height
+        let scrW = screenSize.width > 0 ? screenSize.width : imgW
+        let scrH = screenSize.height > 0 ? screenSize.height : imgH
 
         let maxX = max((imgW * scale - scrW) / 2, 0)
         let maxY = max((imgH * scale - scrH) / 2, 0)

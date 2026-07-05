@@ -205,7 +205,7 @@ enum RecorderState {
 }
 
 @MainActor
-final class VoiceRecorderVM: ObservableObject {
+final class VoiceRecorderVM: NSObject, ObservableObject {
     @Published var state: RecorderState = .idle
     @Published var timerText: String = "00:00:00"
     @Published var waveformSamples: [Float] = []
@@ -306,24 +306,13 @@ final class VoiceRecorderVM: ObservableObject {
     }
 
     private func startPlaybackTimer() {
-        playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                guard let self, let player = self.audioPlayer else { return }
-                if player.isPlaying {
-                    self.playbackProgress = CGFloat(player.currentTime / player.duration)
-                    // 재생 시간 표시
-                    let elapsed = player.currentTime
-                    let mins = Int(elapsed) / 60
-                    let secs = Int(elapsed) % 60
-                    let hundredths = Int((elapsed.truncatingRemainder(dividingBy: 1)) * 100)
-                    self.timerText = String(format: "%02d:%02d:%02d", mins, secs, hundredths)
-                } else {
-                    self.playbackProgress = 1.0
-                    self.isPlaying = false
-                    self.stopPlaybackTimer()
-                }
-            }
-        }
+        playbackTimer = Timer.scheduledTimer(
+            timeInterval: 0.05,
+            target: self,
+            selector: #selector(handlePlaybackTimer),
+            userInfo: nil,
+            repeats: true
+        )
     }
 
     private func stopPlaybackTimer() {
@@ -340,13 +329,13 @@ final class VoiceRecorderVM: ObservableObject {
     }
 
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                guard let self, self.state == .recording else { return }
-                self.updateTimer()
-                self.updateWaveform()
-            }
-        }
+        timer = Timer.scheduledTimer(
+            timeInterval: 0.03,
+            target: self,
+            selector: #selector(handleRecordingTimer),
+            userInfo: nil,
+            repeats: true
+        )
     }
 
     private func stopTimer() {
@@ -373,6 +362,29 @@ final class VoiceRecorderVM: ObservableObject {
         let smoothed = lastSmoothedValue * 0.3 + scaled * 0.7
         lastSmoothedValue = smoothed
         waveformSamples.append(smoothed)
+    }
+
+    @objc private func handlePlaybackTimer() {
+        guard let player = audioPlayer else { return }
+
+        if player.isPlaying {
+            playbackProgress = CGFloat(player.currentTime / player.duration)
+            let elapsed = player.currentTime
+            let mins = Int(elapsed) / 60
+            let secs = Int(elapsed) % 60
+            let hundredths = Int((elapsed.truncatingRemainder(dividingBy: 1)) * 100)
+            timerText = String(format: "%02d:%02d:%02d", mins, secs, hundredths)
+        } else {
+            playbackProgress = 1.0
+            isPlaying = false
+            stopPlaybackTimer()
+        }
+    }
+
+    @objc private func handleRecordingTimer() {
+        guard state == .recording else { return }
+        updateTimer()
+        updateWaveform()
     }
 }
 

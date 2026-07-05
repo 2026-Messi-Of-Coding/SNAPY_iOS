@@ -158,30 +158,6 @@ struct StoryDetailView: View {
         ZStack {
             storyPhotoContent(photo: photos.isEmpty ? nil : photos[safeImageIndex], size: size)
 
-            // PIP 전후면 전환 (좌/우 탭 영역 위에 배치)
-            if let photo = photos.isEmpty ? nil : photos[safeImageIndex],
-               let frontUrl = photo.frontImageUrl, let fUrl = URL(string: frontUrl),
-               let backUrl = photo.backImageUrl, let bUrl = URL(string: backUrl) {
-                ZStack {
-                    KFImage(fUrl).resizable().placeholder { Color.customGray500 }.fade(duration: 0.2)
-                        .scaledToFill().opacity(isPhotoSwapped ? 0 : 1)
-                    KFImage(bUrl).resizable().placeholder { Color.customGray500 }.fade(duration: 0.2)
-                        .scaledToFill().opacity(isPhotoSwapped ? 1 : 0)
-                }
-                .frame(width: 130, height: 180).clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.black.opacity(0.3), lineWidth: 1))
-                .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.top, 80).padding(.leading, 14)
-                .onTapGesture {
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    withAnimation(.spring(response: 0.15, dampingFraction: 1)) {
-                        isPhotoSwapped.toggle()
-                    }
-                }
-            }
-
             if !viewModel.hideUI {
                 VStack(spacing: 0) {
                     storyTopBar(story: story, userIndex: userIndex, photos: photos)
@@ -339,9 +315,18 @@ struct StoryDetailView: View {
             .onEnded { value in
                 guard userIndex == viewModel.currentUserIndex else { return }
 
-                let topReservedHeight: CGFloat = 180
-                let bottomReservedHeight: CGFloat = 170
                 let location = value.location
+                let pipRect = CGRect(x: 14, y: 80, width: 130, height: 180)
+                let topReservedHeight: CGFloat = 96
+                let bottomReservedHeight: CGFloat = 170
+
+                if pipRect.contains(location) {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    withAnimation(.spring(response: 0.15, dampingFraction: 1)) {
+                        isPhotoSwapped.toggle()
+                    }
+                    return
+                }
 
                 guard location.y >= topReservedHeight,
                       location.y <= size.height - bottomReservedHeight else {
