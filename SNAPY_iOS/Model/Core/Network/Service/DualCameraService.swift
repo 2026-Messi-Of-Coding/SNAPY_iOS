@@ -180,17 +180,17 @@ final class DualCameraService: NSObject, ObservableObject {
     private func observeSessionInterruption() {
         NotificationCenter.default.addObserver(
             self, selector: #selector(sessionWasInterrupted),
-            name: .AVCaptureSessionWasInterrupted, object: multiCamSession
+            name: AVCaptureSession.wasInterruptedNotification, object: multiCamSession
         )
         NotificationCenter.default.addObserver(
             self, selector: #selector(sessionInterruptionEnded),
-            name: .AVCaptureSessionInterruptionEnded, object: multiCamSession
+            name: AVCaptureSession.interruptionEndedNotification, object: multiCamSession
         )
     }
 
     private func removeSessionObservers() {
-        NotificationCenter.default.removeObserver(self, name: .AVCaptureSessionWasInterrupted, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .AVCaptureSessionInterruptionEnded, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AVCaptureSession.wasInterruptedNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AVCaptureSession.interruptionEndedNotification, object: nil)
     }
 
     @objc private func sessionWasInterrupted(_ notification: Notification) {

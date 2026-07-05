@@ -21,9 +21,6 @@ struct PhotoPreviewView: View {
             // 듀얼캠
             GeometryReader { geo in
                 ZStack(alignment: .topLeading) {
-                    let mainImage = isSwapped ? lastPhoto?.front : lastPhoto?.back
-                    let pipImage = isSwapped ? lastPhoto?.back : lastPhoto?.front
-
                     // 풀사이즈: back 이미지
                     if let backImage = lastPhoto?.back {
                         Image(uiImage: backImage)

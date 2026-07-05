@@ -101,7 +101,7 @@ struct PublishPreviewView: View {
                 .scrollTargetBehavior(.viewAligned)
                 .frame(width: geo.size.width, height: cardHeight)
             }
-            .frame(height: UIScreen.main.bounds.width * 0.72 * 1.45)
+            .aspectRatio(1 / (0.72 * 1.45), contentMode: .fit)
 
             Spacer()
 
