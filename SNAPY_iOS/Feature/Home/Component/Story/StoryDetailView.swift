@@ -18,7 +18,7 @@ enum StoryLikeCache {
     static func clear() { store.removeAll() }
 }
 
-private struct StoryProfileDestination: Identifiable {
+private struct StoryProfileDestination: Identifiable, Hashable {
     let handle: String
     let name: String
     let profileImageUrl: String?
