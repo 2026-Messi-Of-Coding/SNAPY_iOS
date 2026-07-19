@@ -215,6 +215,10 @@ final class FriendProfileViewModel: ObservableObject {
         do {
             let albums = try await AlbumService.shared.fetchAlbumsForUser(month: month, handle: handle)
             let sorted = albums.sorted { $0.albumDate > $1.albumDate }
+            async let postCountTask: Void = loadVisiblePostCount(
+                currentMonthAlbums: albums,
+                currentMonth: month
+            )
 
             let posts: [FeedPost] = await withTaskGroup(of: FeedPost?.self) { group in
                 for album in sorted {
@@ -245,10 +249,30 @@ final class FriendProfileViewModel: ObservableObject {
             }
 
             feedPosts = posts
-            postCount = posts.count
+            await postCountTask
         } catch {
             print("[FriendProfileVM] 피드 로드 실패: \(error)")
         }
+    }
+
+    /// 상대에게 공개된 과거 앨범과 이번 달 앨범을 모두 합산해 프로필 게시물 수를 계산한다.
+    private func loadVisiblePostCount(currentMonthAlbums: [AlbumListItemData], currentMonth: Int) async {
+        let pastMonths = Set(pastAlbums.map(\.month)).subtracting([currentMonth])
+        var allAlbums = currentMonthAlbums
+
+        await withTaskGroup(of: [AlbumListItemData].self) { group in
+            for month in pastMonths {
+                group.addTask { [handle] in
+                    (try? await AlbumService.shared.fetchAlbumsForUser(month: month, handle: handle)) ?? []
+                }
+            }
+
+            for await albums in group {
+                allAlbums.append(contentsOf: albums)
+            }
+        }
+
+        postCount = Set(allAlbums.map(\.albumId)).count
     }
 
     // MARK: - 과거 달 피드 로드

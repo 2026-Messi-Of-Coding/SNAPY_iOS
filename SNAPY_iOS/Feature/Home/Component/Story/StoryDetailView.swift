@@ -18,6 +18,14 @@ enum StoryLikeCache {
     static func clear() { store.removeAll() }
 }
 
+private struct StoryProfileDestination: Identifiable, Hashable {
+    let handle: String
+    let name: String
+    let profileImageUrl: String?
+
+    var id: String { handle }
+}
+
 struct StoryDetailView: View {
     let stories: [StoryItem]
     let initialIndex: Int
@@ -26,7 +34,7 @@ struct StoryDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: StoryDetailViewModel
 
-    @State private var navProfileHandle: String? = nil
+    @State private var selectedProfile: StoryProfileDestination?
     @State private var showLikeSheet = false
     @State private var showReport = false
     @State private var showStoryMenu = false
@@ -90,16 +98,14 @@ struct StoryDetailView: View {
                 viewModel.loadLikesForMyStory()
                 isPhotoSwapped = false
             }
-            .navigationDestination(isPresented: Binding(
-                get: { navProfileHandle != nil },
-                set: { if !$0 { navProfileHandle = nil; viewModel.startTimer() } }
-            )) {
-                if let handle = navProfileHandle {
-                    FriendProfileView(
-                        name: viewModel.currentStory.displayName,
-                        handle: handle,
-                        profileImageUrl: viewModel.currentStory.profileImage.isImageURL ? viewModel.currentStory.profileImage : nil
-                    )
+            .navigationDestination(item: $selectedProfile) { profile in
+                FriendProfileView(
+                    name: profile.name,
+                    handle: profile.handle,
+                    profileImageUrl: profile.profileImageUrl
+                )
+                .onDisappear {
+                    viewModel.startTimer()
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
@@ -110,7 +116,17 @@ struct StoryDetailView: View {
                 ReportView(reportType: .STORY, targetId: "\(viewModel.currentStory.storyId)")
             }
             .sheet(isPresented: $showLikeSheet, onDismiss: { viewModel.isPaused = false }) {
-                StoryLikeListSheet(likeUsers: viewModel.likeUsers)
+                StoryLikeListSheet(likeUsers: viewModel.likeUsers) { user in
+                    viewModel.stopTimer()
+                    showLikeSheet = false
+                    DispatchQueue.main.async {
+                        selectedProfile = StoryProfileDestination(
+                            handle: user.handle,
+                            name: user.username,
+                            profileImageUrl: user.profileImageUrl
+                        )
+                    }
+                }
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
             }
@@ -199,7 +215,11 @@ struct StoryDetailView: View {
                 Button {
                     if story.username != viewModel.myHandle {
                         viewModel.stopTimer()
-                        navProfileHandle = story.username
+                        selectedProfile = StoryProfileDestination(
+                            handle: story.username,
+                            name: story.displayName,
+                            profileImageUrl: story.profileImage.isImageURL ? story.profileImage : nil
+                        )
                     }
                 } label: {
                     HStack(spacing: 12) {
