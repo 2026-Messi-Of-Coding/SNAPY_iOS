@@ -10,6 +10,7 @@ import SwiftUI
 struct AlbumView: View {
     @StateObject private var viewModel = AlbumViewModel()
     @ObservedObject private var photoStore = PhotoStore.shared
+    @Environment(\.scenePhase) private var scenePhase
 
     @State private var dragOffset: CGFloat = 0
     @State private var showCalendar = false
@@ -67,7 +68,16 @@ struct AlbumView: View {
             AlbumCalendarView()
         }
         .task {
+            viewModel.synchronizeCurrentDate()
+            viewModel.startObservingDayChange()
             await viewModel.loadSelectedDate()
+        }
+        .onDisappear {
+            viewModel.stopObservingDayChange()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            viewModel.synchronizeCurrentDate()
         }
         .onChange(of: viewModel.selectedDate) { _, _ in
             viewModel.currentPage = TimeSlot.current.rawValue

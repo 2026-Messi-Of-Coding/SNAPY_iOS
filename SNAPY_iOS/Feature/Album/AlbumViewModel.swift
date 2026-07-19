@@ -17,16 +17,31 @@ enum EmptySlotState {
 
 @MainActor
 final class AlbumViewModel: ObservableObject {
-    @Published var selectedDate: Date = Date()
+    @Published var selectedDate: Date
     @Published var currentPage: Int = TimeSlot.current.rawValue
     @Published var slideDirection: SlideDirection = .none
+
+    private let calendar: Calendar
+    private var lastKnownToday: Date
+    private var dayChangeTask: Task<Void, Never>?
+
+    init(calendar: Calendar = .current, now: Date = Date()) {
+        self.calendar = calendar
+        let today = calendar.startOfDay(for: now)
+        self._selectedDate = Published(initialValue: today)
+        self.lastKnownToday = today
+    }
+
+    deinit {
+        dayChangeTask?.cancel()
+    }
 
     enum SlideDirection {
         case none, left, right
     }
 
     private var isToday: Bool {
-        Calendar.current.isDateInToday(selectedDate)
+        calendar.isDateInToday(selectedDate)
     }
 
     var dateString: String {
@@ -73,18 +88,56 @@ final class AlbumViewModel: ObservableObject {
     func goToPreviousDay() {
         slideDirection = .right
         withAnimation(.easeInOut(duration: 0.3)) {
-            selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate) ?? selectedDate
+            selectedDate = calendar.date(byAdding: .day, value: -1, to: selectedDate) ?? selectedDate
         }
     }
 
     func goToNextDay() {
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? selectedDate
-        if tomorrow <= Date() {
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: selectedDate) ?? selectedDate
+        let today = calendar.startOfDay(for: Date())
+        if tomorrow <= today {
             slideDirection = .left
             withAnimation(.easeInOut(duration: 0.3)) {
                 selectedDate = tomorrow
             }
         }
+    }
+
+    /// 앱이 자정을 넘긴 경우, 기존에 보고 있던 오늘 앨범을 새 오늘 날짜로 갱신한다.
+    func synchronizeCurrentDate() {
+        let today = calendar.startOfDay(for: Date())
+        defer { lastKnownToday = today }
+
+        guard !calendar.isDate(lastKnownToday, inSameDayAs: today),
+              calendar.isDate(selectedDate, inSameDayAs: lastKnownToday) else {
+            return
+        }
+
+        selectedDate = today
+    }
+
+    func startObservingDayChange() {
+        dayChangeTask?.cancel()
+        dayChangeTask = Task { [weak self] in
+            while !Task.isCancelled {
+                guard let self else { return }
+                let nextDay = self.calendar.date(byAdding: .day, value: 1, to: self.calendar.startOfDay(for: Date())) ?? Date()
+                let nanoseconds = UInt64(max(nextDay.timeIntervalSinceNow, 1) * 1_000_000_000)
+
+                do {
+                    try await Task.sleep(nanoseconds: nanoseconds)
+                } catch {
+                    return
+                }
+
+                self.synchronizeCurrentDate()
+            }
+        }
+    }
+
+    func stopObservingDayChange() {
+        dayChangeTask?.cancel()
+        dayChangeTask = nil
     }
 
     /// 선택된 날짜의 앨범을 서버에서 로드
@@ -95,7 +148,7 @@ final class AlbumViewModel: ObservableObject {
             await PhotoStore.shared.loadAlbumById(albumId)
         } else {
             // monthAlbums 에 없으면 해당 월을 추가 로드 (기존 데이터 유지)
-            let month = Calendar.current.component(.month, from: selectedDate)
+            let month = calendar.component(.month, from: selectedDate)
             await PhotoStore.shared.appendMonth(month)
             // 다시 시도
             if let albumId = PhotoStore.shared.albumId(for: selectedDate) {
